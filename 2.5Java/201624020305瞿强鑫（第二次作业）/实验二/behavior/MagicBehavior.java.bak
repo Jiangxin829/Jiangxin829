@@ -1,0 +1,12 @@
+package behavior;
+/**
+ * 
+ * @author dell
+ */
+public interface MagicBehavior {
+	/**
+	 * 
+	 */
+	public void magic();
+
+}

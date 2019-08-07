@@ -1,0 +1,719 @@
+#include<iostream>
+#include<fstream>
+#include<stdio.h>
+#include<windows.h>
+#include <conio.h>
+class Student
+{
+    public:
+        void input();//输入学生信息
+        void ifind();// 查找 
+        void nfind();//按学号查找 
+        void mfind();// 按姓名查找 
+        void reput();//更新 
+        void add();//增加学生信息 
+        void del();//删除学生信息 
+        void sfind1();// 按学号删除 
+        void sfind2();//按姓名删除 
+        void prinft();//输出学生信息 
+        void Order();//学生成绩排序 
+        void Order1();//升序排序 
+        void Order2();//降序排序 
+        void change();// 修改学生信息 
+        void Read();//读取文件中的学生信息 
+        void save();//保存学生信息 
+        double aver;//平均成绩 
+        void Count();//学生成绩统计 
+        friend void read(int i[],char name[],char sex[], double math[],double english[],double computer[]);
+    private:
+        int i;            //学号
+        char  name;    //姓名
+        char  sex;     //性别
+        double math;
+        double english;
+        double computer;
+};
+struct student
+{
+	int i;            //学号
+    char name[10];    //姓名
+    char sex[10];     //性别
+    double math;
+    double english;
+    double computer;
+    int aver;
+};
+Student stud[100];
+Student stu;
+using namespace std;
+int N=0;
+int main ()
+{
+    int w;
+    cout<<"请输入进入密码"<<endl;
+    cin>>w;
+    if(w==777)
+    {
+    system("cls");
+    int i;
+    cout<<"\t\t§§§§§§§§§§§§§§§§§§§§§§§§§§"<<endl;
+    for(i=0;i<3;i++)
+    cout<<"\t\t◎\t\t\t\t\t\t  ◎"<<endl;
+    SetConsoleTextAttribute(GetStdHandle(STD_OUTPUT_HANDLE),FOREGROUND_INTENSITY|FOREGROUND_RED);
+    cout<<"\t\t◎★★★★【  欢迎进入学生成绩管理系统  】★★★★◎"<<endl;
+    SetConsoleTextAttribute(GetStdHandle(STD_OUTPUT_HANDLE),FOREGROUND_INTENSITY|FOREGROUND_INTENSITY);
+    for(i=0;i<3;i++)
+    cout<<"\t\t◎\t\t\t\t\t\t  ◎"<<endl;
+    cout<<"\t\t§§§§§§§§§§§§§§§§§§§§§§§§§§\n"<<endl;;
+    cout<<"按任意键开始……";
+    getch();
+    system("cls");
+    int q=-1;
+	while(q!=0)
+	{
+    SetConsoleTextAttribute(GetStdHandle(STD_OUTPUT_HANDLE),FOREGROUND_INTENSITY|FOREGROUND_RED);
+    cout<<"                                       学生信息管理系统"<<endl;_sleep(2000);
+    SetConsoleTextAttribute(GetStdHandle(STD_OUTPUT_HANDLE),FOREGROUND_INTENSITY|FOREGROUND_GREEN);
+    cout<<"*********************************************************************************************"<<endl;_sleep(150);
+    cout<<"*                请输入所需功能前数字进入该功能，如第一次使用请先输入学生信息。             *"<<endl;_sleep(150);
+    cout<<"*                          |1.输入学生信息         2.查询学生信息|                          *"<<endl;_sleep(150);//查询功能需2级菜单.（学号，姓名）更新功能2级菜单.（修改，插入，删除）
+    cout<<"*                          |3.更新学生信息         4.读取学生信息|                          *"<<endl;_sleep(150);
+    cout<<"*                          |5.学生成绩排序         6.各科成绩统计|                          *"<<endl;_sleep(150);
+    cout<<"*                          |7.输出学生信息         0.退出管理系统|                          *"<<endl;_sleep(150);
+    cout<<"*********************************************************************************************"<<endl;_sleep(150);
+    SetConsoleTextAttribute(GetStdHandle(STD_OUTPUT_HANDLE),FOREGROUND_INTENSITY|FOREGROUND_INTENSITY);
+    cin>>q;
+    switch(q)
+    {
+    case 1:
+      stu.input();
+      system("pause");
+	  system("cls");
+      break;
+    case 2:
+       stu.ifind();
+	    system("cls");
+        break;
+    case 3:
+        stu.reput();
+        system("cls");
+        break;
+    case 4:
+        stu.Read();
+        system("pause");
+	    system("cls");
+        break;
+    case 5:
+        stu.Order();
+        system("cls");
+        break;
+    case 6 :
+        stu.Count();
+	    system("cls");
+	    break;
+    case 7:
+        stu.prinft();
+        system("pause");
+        system("cls");
+        break;
+    case 0:
+        break;
+    default:
+        cout<<"错误！无此功能，抱歉."<<endl;
+	    exit(1);
+	   }
+    }
+
+    return 0;}
+    else
+        cout<<"密码输入错误，请重新输入"<<endl;
+        return main();
+     } //主函数
+void read( int i[],char name[],char sex[], double math[],double english[],double computer[])
+{
+    ifstream op("d:\\学生管理系统\\mylife.txt",ios::out);
+    if(op.fail())
+    {
+        cerr<<"error opening file\n";
+        exit(1);
+    }
+
+    int q=0;
+    do{op>>i[q]>>name[q]>>sex[q]>>math[q]>>english[q]>>computer[q];
+    q++;}
+    while(!op.eof());
+    N=q-1;
+        op.close();
+}
+void Student::input()
+{
+    ofstream sr("d:\\学生管理系统\\mylife.txt");
+    if(sr.fail())
+    {
+        cerr<<"error opening file\n";
+		exit(1);
+	}
+      int n;
+    cout<<"请输入所需学生人数,输入学号为0时停止.输入666返回菜单"<<endl;
+    cin>>n;
+    if(n==666)
+        return ;
+    else
+    {
+    cout<<"                           学生成绩信息\n"
+      <<"            学号   姓名  性别  数学成绩  英语成绩  计算机成绩\n";
+    for( int j=0;j<n;j++)
+      {
+        cout<<"这是第"<<j+1<<"名学生";
+        cin>>i;
+        if(i==0)
+            {
+            cout<<"输入完成！";
+            break;}
+        cin>>name>>sex>>math>>english>>computer;
+        sr<<i<<"\t"<<name<<"\t"<<sex<<"\t"<<math<<"\t"<<english<<"\t"<<computer<<"\t"<<endl;
+         }
+       }//输入函数。
+}
+void Student::ifind()
+{
+    cout<<"*********************************************"<<endl;
+    SetConsoleTextAttribute(GetStdHandle(STD_OUTPUT_HANDLE),FOREGROUND_INTENSITY|FOREGROUND_RED);
+    cout<<"*1.按学号查询，2按姓名查询.3.输入666返回菜单*"<<endl;
+    SetConsoleTextAttribute(GetStdHandle(STD_OUTPUT_HANDLE),FOREGROUND_INTENSITY|FOREGROUND_INTENSITY);
+    cout<<"*********************************************"<<endl;
+    int i;
+    cin>>i;
+    if(i==666)
+        return ;
+    else
+    switch(i)
+    {
+        case 1:
+        nfind();
+      system("pause");
+	  system("cls");
+	  break;
+	  case 2:
+      mfind();
+	  system("pause");
+	  system("cls");
+	  break;
+    }
+}
+void Student::nfind()
+{
+    int i[100];
+    char name[100];
+    char sex[100];
+     double math[100];
+     double english[100];
+    double computer[100];
+    read(i,name,sex,math,english,computer);
+    int id,j,w=0;
+    cout<<"请输入学号，输入666返回菜单"<<endl;
+    cin>>id;
+    if(id==666)
+        return ;
+    else
+    for(j=0;j<N;j++)
+    if(i[j]==id)
+    {
+        w=1;
+        cout<<"学号   姓名  性别  数学成绩  英语成绩  计算机成绩\n"<<endl;
+        cout<<i[j]<<"\t"<<name[j]<<"\t"<<sex[j]<<"\t"<<math[j]<<"\t"<<english[j]<<"\t"<<computer[j]<<"\t"<<endl;
+      }
+    if(w==0)
+        cout<<"没有所查找信息"<<endl;
+}
+void Student::mfind()
+{
+    int i[100];
+    char name[100];
+    char sex[100];
+     double math[100];
+     double english[100];
+    double computer[100];
+    read(i,name,sex,math,english,computer);
+    int j,w=0;
+    char id;
+    cout<<"请输入姓名，输入666返回"<<endl;
+    cin>>id;
+    if(id==666)
+        return ;
+    else
+    for(j=0;j<N;j++)
+    if(name[j]==id)
+    {
+        w=1;
+        cout<<"学号   姓名  性别  数学成绩  英语成绩  计算机成绩\n"<<endl;
+        cout<<i[j]<<"\t"<<name[j]<<"\t"<<sex[j]<<"\t"<<math[j]<<"\t"<<english[j]<<"\t"<<computer[j]<<"\t"<<endl;
+      }
+    if(w==0)
+    cout<<"没有所查找信息"<<endl;
+}
+void Student::reput()
+{
+	int b;
+	cout<<"***********************************************************************"<<endl;
+	SetConsoleTextAttribute(GetStdHandle(STD_OUTPUT_HANDLE),FOREGROUND_INTENSITY|FOREGROUND_RED);
+	cout<<"1.增加学生信息    2.删除学生信息   3.修改学生信息   （输入666返回菜单）"<<endl;
+	SetConsoleTextAttribute(GetStdHandle(STD_OUTPUT_HANDLE),FOREGROUND_INTENSITY|FOREGROUND_INTENSITY);
+	cout<<"***********************************************************************"<<endl;
+	cin>>b;
+	if(b==666)
+        return ;
+    else
+	switch(b)
+    {
+    case 1:
+	    stu.add();
+		system("pause");
+	    system("cls");
+        break;
+    case 2:
+        stu.del();
+        system("pause");
+	    system("cls");
+	  break;
+    case 3:
+        stu.change();
+        system("pause");
+        system("cls");
+	  break;
+	}
+}
+void Student::add()
+{
+    int n;
+    ofstream sc("d:\\学生管理系统\\mylife.txt",ios::app);
+    if(sc.fail())
+    {
+        cerr<<"error opening file\n";
+        exit(1);
+    }
+	SetConsoleTextAttribute(GetStdHandle(STD_OUTPUT_HANDLE),FOREGROUND_INTENSITY|FOREGROUND_RED);
+	cout<<"请输入所需增加人数"<<endl;
+	SetConsoleTextAttribute(GetStdHandle(STD_OUTPUT_HANDLE),FOREGROUND_INTENSITY|FOREGROUND_INTENSITY);
+	cin>>n;
+	int j;
+	cout<<"学号   姓名   性别  数学成绩  英语成绩  计算机成绩\n";
+	for(j=0;j<n;j++)
+	{
+	 cin>>i>>name>>sex>>math>>english>>computer;
+	 sc<<i<<"\t"<<name<<"\t"<<sex<<"\t"<<math<<"\t"<<english<<"\t"<<computer<<"\t"<<endl;
+	}
+	cout<<"添加成功！";
+}//增加学生信息函数
+void Student::del()
+{
+    cout<<"***************************************************"<<endl;
+    SetConsoleTextAttribute(GetStdHandle(STD_OUTPUT_HANDLE),FOREGROUND_INTENSITY|FOREGROUND_RED);
+    cout<<"*1.按学号查询所要删除信息，2按姓名查询所要删除信息*"<<endl;
+    SetConsoleTextAttribute(GetStdHandle(STD_OUTPUT_HANDLE),FOREGROUND_INTENSITY|FOREGROUND_INTENSITY);
+    cout<<"***************************************************"<<endl;
+    int i;
+    cin>>i;
+    switch(i)
+    {
+        case 1:
+          sfind1();
+          system("pause");
+	      system("cls");
+	      break;
+        case 2:
+	     sfind2();
+	     system("pause");
+	     system("cls");
+	     break;
+    }
+}
+void Student::sfind1()
+{
+       int i[100];
+         char name[100];
+         char sex[100];
+         double math[100];
+         double english[100];
+         double computer[100];
+    read(i,name,sex,math,english,computer);
+    int j,w=0;
+    int id;
+    cout<<"请输入所要删除学生的学号"<<endl;
+    cin>>id;
+    cout<<"学号   姓名  性别  数学成绩  英语成绩  计算机成绩\n";
+    for(j=0;j<N;j++)
+    if(i[j]==id)
+     {
+         ofstream  sc("d:\\学生管理系统\\mylife.txt");
+               if(sc.fail())
+       {
+           cerr<<"error opening file\n";
+		   exit(1);
+	   }
+        w=1;
+        cout<<i[j]<<"\t"<<name[j]<<"\t"<<sex[j]<<"\t"<<math[j]<<"\t"<<english[j]<<"\t"<<computer[j]<<"\t"<<endl;
+        system("pause");
+        cout<<"是否确认删除,(y/n)"<<endl;
+        char x;
+        cin>>x;
+        if(x=='Y'||x=='y')
+        {
+            for(;j<N;j++)
+          {
+            if(i[j]!=id)
+            sc<<i[j]<<"\t"<<name[j]<<"\t"<<sex[j]<<"\t"<<math[j]<<"\t"<<english[j]<<"\t"<<computer[j]<<"\t"<<endl;
+
+        }N=N-1;
+      }
+      else
+        break;
+      cout<<"信息删除成功"<<endl;
+    if(w==0)
+        cout<<"没有所查找信息"<<endl;}
+}
+void Student::sfind2()
+{
+    int i[100];
+         char name[100];
+         char sex[100];
+         double math[100];
+         double english[100];
+         double computer[100];
+    read(i,name,sex,math,english,computer);
+    int j,w=0;
+    char id;
+    cout<<"请输入所要删除学生的姓名"<<endl;
+    cin>>id;
+    cout<<"学号   姓名  性别  数学成绩  英语成绩  计算机成绩\n";
+    for(j=0;j<N;j++)
+    if(name[j]==id)
+     {
+         ofstream  sc("d:\\学生管理系统\\mylife.txt");
+               if(sc.fail())
+       {
+           cerr<<"error opening file\n";
+		   exit(1);
+	   }
+        w=1;;
+        cout<<i[j]<<"\t"<<name[j]<<"\t"<<sex[j]<<"\t"<<math[j]<<"\t"<<english[j]<<"\t"<<computer[j]<<"\t"<<endl;
+        system("pause");
+        cout<<"是否确认删除,(y/n)"<<endl;
+        char x;
+        cin>>x;
+        if(x=='Y'||x=='y')
+        {
+            for(;j<N;j++)
+          {
+            if(name[j]!=id)
+            sc<<i[j]<<"\t"<<name[j]<<"\t"<<sex[j]<<"\t"<<math[j]<<"\t"<<english[j]<<"\t"<<computer[j]<<"\t"<<endl;
+        }N=N-1;
+      }
+      cout<<"信息删除成功"<<endl;
+    if(w==0)
+        cout<<"没有所查找信息"<<endl;}
+}//删除学生信息。
+void Student::save()
+{
+    int j;
+    int i[100];
+         char name[100];
+         char sex[100];
+         double math[100];
+         double english[100];
+         double computer[100];
+    ofstream sr("d:\\学生管理系统\\mylife.txt");
+    if(sr.fail())
+    {
+        cerr<<"error opening file\n";
+        exit(1);
+    }
+    for(j=0;j<N;j++)
+        sr<<i[j]<<"\t"<<name[j]<<"\t"<<sex[j]<<"\t"<<math[j]<<"\t"<<english[j]<<"\t"<<computer[j]<<"\t"<<endl;
+}
+void Student::change()
+{
+         int i[100];
+         char name[100];
+         char sex[100];
+         double math[100];
+         double english[100];
+         double computer[100];
+    read(i,name,sex,math,english,computer);
+    cout<<"请输入所要修改学生信息的学号"<<endl;
+    int id,j,w=0;
+    cin>>id;
+	cout<<"学号   姓名   性别  数学成绩  英语成绩  计算机成绩\n";
+    for(j=0;j<N;j++)
+    {
+      if(i[j]==id)
+        {
+            ofstream sr("d:\\学生管理系统\\mylife.txt");
+            if(sr.fail())
+         {
+            cerr<<"error opening file\n";
+		    exit(1);
+	      }
+            w=1;
+        cout<<i[j]<<"\t"<<name[j]<<"\t"<<sex[j]<<"\t"<<math[j]<<"\t"<<english[j]<<"\t"<<computer[j]<<"\t"<<endl;
+        cout<<"请输入修改后的信息"<<endl;
+        int q=0;
+        cin>>i[q]>>name[q]>>sex[q]>>math[q]>>english[q]>>computer[q];
+            i[j]=i[q];
+            name[j]=name[q];
+            sex[j]=sex[q];
+            math[j]=math[q];
+            english[j]=english[q];
+            computer[j]=computer[q];
+        for(;j<N;j++)
+          {
+            sr<<i[j]<<"\t"<<name[j]<<"\t"<<sex[j]<<"\t"<<math[j]<<"\t"<<english[j]<<"\t"<<computer[j]<<"\t"<<endl;
+        }
+       if(w==0)
+        cout<<"没有所查找信息"<<endl;
+         }
+    }
+}
+void Student::Read()
+{
+    int i[100];
+         char name[100];
+         char sex[100];
+         double math[100];
+         double english[100];
+         double computer[100];
+    read(i,name,sex,math,english,computer);
+    cout<<"现在共有学生"<<N<<"名"<<endl;
+     cout<<"              学生成绩信息\n"
+      <<"学号   姓名  性别  数学成绩  英语成绩  计算机成绩\n";
+    for(int q=0;q<N;q++)
+    {
+        cout<<i[q]<<"\t"<<name[q]<<"\t"<<sex[q]<<"\t"<<math[q]<<"\t"<<english[q]<<"\t"<<computer[q]<<"\t"<<endl;
+        }
+
+}
+void Student::Order1()
+{
+	student x[100];
+	ifstream sr("d:\\学生管理系统\\mylife.txt");
+    if(sr.fail())
+    {
+        cerr<<"error opening file\n";
+		exit(1);
+	}
+	int n=0;
+	do{
+		sr>>x[n].i>>x[n].name>>x[n].sex>>x[n].math>>x[n].english>>x[n].computer;
+		x[n].aver=(x[n].math+x[n].english+x[n].computer)/3;
+		n++;
+	}while(!sr.eof());
+        student z;
+			cout<<"学号   姓名   性别 数学成绩 英语成绩 计算机成绩 平均分\n";
+			for(int b=0;b<n-1;b++)
+			{
+				int m,y,flag;
+				for(m=0;m<n-1;m++)
+				{
+					flag=0;
+					for(y=0;y<n-m-2;y++)
+					if(x[y].aver>x[y+1].aver)
+					{
+						z=x[y];
+						x[y]=x[y+1];
+						x[y+1]=z;
+						flag=1;
+					}
+					if(flag==0)break;
+				}
+				cout<<x[b].i<<"\t"<<x[b].name<<"\t"<<x[b].sex<<"\t"<<x[b].math<<"\t"<<x[b].english<<"\t"<<x[b].computer<<"\t"<<x[b].aver<<"\t"<<endl;
+}
+}
+void Student::Order2()
+{
+    student x[100];
+	ifstream sr("d:\\学生管理系统\\mylife.txt");
+    if(sr.fail())
+    {
+        cerr<<"error opening file\n";
+		exit(1);
+	}
+	int n=0;
+	do{
+		sr>>x[n].i>>x[n].name>>x[n].sex>>x[n].math>>x[n].english>>x[n].computer;
+		x[n].aver=(x[n].math+x[n].english+x[n].computer)/3;
+		n++;
+	}while(!sr.eof());
+        student z;
+			cout<<"学号   姓名   性别 数学成绩 英语成绩 计算机成绩 平均分\n";
+			for(int b=0;b<n-1;b++)
+			{
+				int m,y,flag;
+				for(m=0;m<n;m++)
+				{
+					flag=0;
+					for(y=0;y<n-m-2;y++)
+					if(x[y].aver<x[y+1].aver)
+					{
+						z=x[y];
+						x[y]=x[y+1];
+						x[y+1]=z;
+						flag=1;
+					}
+					if(flag==0)break;
+				}
+				cout<<x[b].i<<"\t"<<x[b].name<<"\t"<<x[b].sex<<"\t"<<x[b].math<<"\t"<<x[b].english<<"\t"<<x[b].computer<<"\t"<<x[b].aver<<"\t"<<endl;
+}
+}
+void Student::Order()
+{
+
+	int p;
+	cout<<"************************************************"<<endl;
+    SetConsoleTextAttribute(GetStdHandle(STD_OUTPUT_HANDLE),FOREGROUND_INTENSITY|FOREGROUND_RED);
+	cout<<"*1.按升序排序；2.按降序排序  （输入666返回菜单）*"<<endl;
+	SetConsoleTextAttribute(GetStdHandle(STD_OUTPUT_HANDLE),FOREGROUND_INTENSITY|FOREGROUND_INTENSITY);
+	cout<<"************************************************"<<endl;
+	cin>>p;
+	if(p==666)
+        return ;
+    else
+	switch(p)
+	{
+	case 1:
+	    Order1();
+	     system("pause");
+		break;
+    case 2:
+        Order2();
+        system("pause");
+		break;
+	}
+	}
+void Student::Count()
+{
+	student x[100];
+	ifstream sr("d:\\学生管理系统\\mylife.txt");
+    if(sr.fail())
+    {
+        cerr<<"error opening file\n";
+		exit(1);
+	}
+	int n=0;
+	do{
+		sr>>x[n].i>>x[n].name>>x[n].sex>>x[n].math>>x[n].english>>x[n].computer;
+		n++;
+	}while(!sr.eof());
+	int m;
+	cout<<"***************************************************************"<<endl;
+	SetConsoleTextAttribute(GetStdHandle(STD_OUTPUT_HANDLE),FOREGROUND_INTENSITY|FOREGROUND_RED);
+	cout<<"*1.高数成绩统计 2.英语成绩统计 3.计算机成绩统计（输入666返回）*"<<endl;
+	SetConsoleTextAttribute(GetStdHandle(STD_OUTPUT_HANDLE),FOREGROUND_INTENSITY|FOREGROUND_INTENSITY);
+	cout<<"***************************************************************"<<endl;
+	cin>>m;
+	int a=0,b=0,c=0,d=0,e=0,z;
+	switch (m)
+	{
+	case 1:
+		for( z=0;z<n-1;z++)
+		{
+			if(x[z].math<60)
+				a++;
+			else
+				if(x[z].math<70)
+					b++;
+				else
+					if(x[z].math<80)
+						c++;
+					else
+						if(x[z].math<90)
+							d++;
+						else
+							e++;
+		}
+		cout<<"高数不及格的人数有"<<a<<"人"<<endl;
+		cout<<"60~70人数有"<<b<<"人"<<endl;
+		cout<<"70~80人数有"<<c<<"人"<<endl;
+		cout<<"80~90人数有"<<d<<"人"<<endl;
+		cout<<"90~100人数有"<<e<<"人"<<endl;
+		system("pause");
+		system("cls");
+		break;
+
+	case 2:
+		for( z=0;z<n-1;z++)
+		{
+			if(x[z].english<60)
+				a++;
+			else
+				if(x[z].english<70)
+					b++;
+				else
+					if(x[z].english<80)
+						c++;
+					else
+						if(x[z].english<90)
+							d++;
+						else
+							e++;
+		}
+		cout<<"英语不及格的人数有"<<a<<"人"<<endl;
+		cout<<"60~70人数有"<<b<<"人"<<endl;
+		cout<<"70~80人数有"<<c<<"人"<<endl;
+		cout<<"80~90人数有"<<d<<"人"<<endl;
+		cout<<"90~100人数有"<<e<<"人"<<endl;
+		system("pause");
+		system("cls");
+		break;
+
+	case 3:
+		for( z=0;z<n-1;z++)
+		{
+			if(x[z].computer<60)
+				a++;
+			else
+				if(x[z].computer<70)
+					b++;
+				else
+					if(x[z].computer<80)
+						c++;
+					else
+						if(x[z].computer<90)
+							d++;
+						else
+							e++;
+		}
+		cout<<"计算机不及格的人数有"<<a<<"人"<<endl;
+		cout<<"60~70人数有"<<b<<"人"<<endl;
+		cout<<"70~80人数有"<<c<<"人"<<endl;
+		cout<<"80~90人数有"<<d<<"人"<<endl;
+		cout<<"90~100人数有"<<e<<"人"<<endl;
+		system("pause");
+		system("cls");
+		break;
+
+}
+}
+void Student::prinft()
+{
+	int m=0;
+	student x[6];
+	ifstream sr("d:\\学生管理系统\\mylife.txt");
+    if(sr.fail())
+    {
+        cerr<<"error opening file\n";
+		exit(1);
+	}
+	int n=0;
+	do{
+		sr>>x[n].i>>x[n].name>>x[n].sex>>x[n].math>>x[n].english>>x[n].computer;
+		x[n].aver=(x[n].math+x[n].english+x[n].computer)/3;
+		n++;
+	}while(!sr.eof());
+	cout<<"学号    姓名 性别 数学成绩 英语成绩 计算机成绩 平均分\n";
+	do
+	{
+		cout<<x[m].i<<"\t"<<x[m].name<<"\t"<<x[m].sex<<"\t"<<x[m].math<<"\t"<<x[m].english<<"\t"<<x[m].computer<<"  \t"<<x[m].aver<<"\t"<<endl;
+		m++;
+	}while(m<n-1);
+
+}

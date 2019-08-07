@@ -1,0 +1,235 @@
+/*#################共用#################*/
+.web_fluid_container {
+	display: flex;
+	align-items: center;
+	justify-content: center;
+	height: 100%;
+	width: 100%;
+}
+
+.web_vcenter {
+	margin: 120px 0px;
+}
+
+body{ 
+	margin:0px 0px 100px 40px; 
+	color:#616366; 
+	font-family:"Raleway", Helvetica, Arial, sans-serif; 
+	font-size:15px; 
+	font-weight:300; 
+	line-height:25px; 
+}
+
+*	{ box-sizing:border-box; 
+}
+
+input[type=text],
+input[type=number],
+input[type=file],
+input[type=password],
+input[type=email],
+
+select{ 
+	border:1px solid #DCDEE0; 
+	vertical-align:middle; 
+	border-radius:3px; 
+	height:50px; 
+	padding:0px 16px; 
+	font-size:20px; 
+	color:#555555; 
+	background-color:#ffffff; 
+	font-family:"Raleway"; 
+	font-weight:inherit; 
+}
+
+.flexwidth100{ width:100%; }
+
+
+input[type=submit],
+input[type=reset],
+a.button{ 
+	display:inline-block; 
+	vertical-align:middle; 
+	padding:12px 143px; 
+	margin:0px; 
+	font-size:20px; 
+	font-weight:bold; 
+	font-family:"Raleway";
+	line-height:24px; 
+	text-align:center; 
+	white-space:nowrap; 
+	vertical-align:middle; 
+	cursor:pointer; 
+	color:#778899; 
+	border-radius:20px; 
+	border:none; 
+	-webkit-appearance: none; 
+	transition: all ease-in .1s; 
+}
+
+h2{
+	text-shadow: 1px 1px 5px #FF0000;
+}
+h3{
+	font-weight:bold; 
+	font-family:"Raleway";
+}
+p{
+	font-weight:bold; 
+	font-family:"Raleway";
+}
+
+
+
+/*#################登陆界面#################*/
+.login_body {
+	background: linear-gradient(0deg, #ffffff 1%, #1e88e5 50%);
+	display: flex;
+}
+
+.login_container {
+	display: flex;
+	align-items: center;
+	justify-content: center;
+	height: 100%;
+	width: 100%;
+}
+
+.web_vcenter > div#login_container > div#login_module > a {
+	display: block;
+	height: 126px;
+	width: 330px;
+	margin: 0 auto 10px auto;
+	background-image: url(/images/1.png);
+	background-size: auto 85px;
+	background-repeat: no-repeat;
+	background-position:center;
+}
+
+.web_vcenter > div#login_container > div#login_module {
+	min-height: 420px;
+	min-width: 365px;
+	max-width: 420px;
+	padding: 40px;
+	background-color: #ffffff;
+	margin-left: auto;
+	margin-right: auto;
+	border-radius: 4px;
+	overflow-x: hidden;
+}
+
+
+/*#################未开发提示界面#################*/
+.back1_body{
+	background: linear-gradient(0deg, #ffffff 1%, #696969 90%);
+	display: flex;
+	color:#1e88e5;
+	font-family:"Raleway";
+}
+
+
+/*#################登陆index界面#################*/
+.web_body{
+	background: linear-gradient(0deg, #ffffff 1%, #b0c4de 90%);
+	display: flex;
+}
+
+body{behavior:url("csshover.htc");text-align:center;}/* css注释说明：兼容ie6 支持标签使用hover */ 
+.divcss5{ } 
+.divcss5 a,.divcss5 span{display:none; text-decoration:none}
+.divcss5:hover{cursor:pointer} 
+.divcss5:hover a.now{cursor:pointer; position:absolute; top:0; width:100%; height:100%;
+z-index:100; left:0; display:block;}
+.divcss5:hover span{ display:block;position:absolute; bottom:0; left:0;color:#FFF;width:150px; 
+z-index:10;height:36px; line-height:36px; background:#000;filter:alpha(opacity=60);-moz-opacity:0.5;opacity: 0.5;}
+/* 设置显示文字定位位置，背景半透明 */ 
+
+
+/*#################个人评价界面#################*/
+.selfintro_body{
+	background: linear-gradient(0deg, #ffffff 1%, #9932cc 90%);
+	background-repeat:no-repeat;
+	display: flex;
+
+}
+
+.selfintro_container {
+	display: flex;
+	align-items: center;
+	justify-content: center;
+	height: 100%;
+	width: 100%;
+}
+
+.web_vcenter > div#selfintro_container > div#selfintro_module {
+	min-height: 800px;
+	min-width: 1200px;
+	max-width: 1300px;
+	padding: 40px;
+	background-color: #ffffff;
+	margin-left: auto;
+	margin-right: auto;
+	border-radius: 10px;
+	overflow-x: hidden;
+}
+
+
+/*#################相册界面#################*/
+.album_body{
+	background: linear-gradient(0deg, #ffffff 1%, #ffff00 90%);
+	background-repeat:no-repeat;
+	display: flex;
+	align-items: center;
+	justify-content: center;
+}
+
+.album_container {
+	display: flex;
+	align-items: center;
+	justify-content: center;
+	height: 100%;
+	width: 100%;
+}
+
+.web_vcenter > div#album_container > div#album_module {
+	min-height: 800px;
+	min-width: 1200px;
+	max-width: 1300px;
+	padding: 40px;
+	background-color: #ffffff;
+	margin-left: auto;
+	margin-right: auto;
+	border-radius: 10px;
+	overflow-x: hidden;
+}
+
+
+
+/*#################日志界面#################*/
+.dailyrecord_body{
+	background: linear-gradient(0deg, #ffffff 1%, #7fff00 90%);
+	background-repeat:no-repeat;
+	display: flex;
+	align-items: center;
+	justify-content: center;
+}
+
+.dailyrecord_container {
+	display: flex;
+	align-items: center;
+	justify-content: center;
+	height: 100%;
+	width: 100%;
+}
+
+.web_vcenter > div#dailyrecord_container > div#dailyrecord_module {
+	min-height: 800px;
+	min-width: 1200px;
+	max-width: 1300px;
+	padding: 40px;
+	background-color: #ffffff;
+	margin-left: auto;
+	margin-right: auto;
+	border-radius: 10px;
+	overflow-x: hidden;
+}
